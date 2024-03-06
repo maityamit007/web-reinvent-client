@@ -10,14 +10,13 @@ import { AppDispatch, AppState } from '../redux/store';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading = false, error =  '' }: { loading: boolean, error: String | boolean } = useSelector((state: AppState) => state.user);
-  console.log(loading);
-  console.log(error);
+  const { loading = false, error =  '' }: { loading: boolean, error: String | Object } = useSelector((state: AppState) => state.user);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+  console.log(loading, error);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,8 +60,8 @@ export default function SignIn() {
           <div className="mt-5">
             <button
               type="submit"
-              disabled={loading}
-              className="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold">
+              disabled={!loading}
+              className="border-2 border-indigo-700 bg-indigo-700 cursor-pointer text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold">
               {loading ? 'Loading...' : <><i className="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Login</>}</button>
           </div>
           <div className='flex gap-2 mt-5'>
@@ -72,7 +71,7 @@ export default function SignIn() {
             </Link>
           </div>
           <p className='text-red-700 mt-5'>
-            {typeof error === 'string' ? (error ? error : 'Something went wrong!') : ''}
+            {/* {error ? ((error?.message !== undefined) ? error?.message : 'Something went wrong!') : ''} */}
           </p>
         </form>
       </div>
