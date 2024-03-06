@@ -60,7 +60,7 @@ export default function SignIn() {
           <div className="mt-5">
             <button
               type="submit"
-              disabled={!loading}
+              disabled={loading}
               className="border-2 border-indigo-700 bg-indigo-700 cursor-pointer text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold">
               {loading ? 'Loading...' : <><i className="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Login</>}</button>
           </div>
