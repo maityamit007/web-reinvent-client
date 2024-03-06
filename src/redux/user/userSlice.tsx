@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface User {
   currentUser: String | null,
   loading: boolean,
-  error: boolean | string,
+  error: boolean | String,
 };
 
 const initialState: User = {
@@ -25,31 +25,6 @@ const userSlice = createSlice({
       state.error = false;
     },
     signInFailure: (state, action: PayloadAction<string>) => {
-      console.log(action);
-      state.loading = false;
-      state.error = action.payload;
-    },
-    updateUserStart: (state) => {
-      state.loading = true;
-    },
-    updateUserSuccess: (state, action: PayloadAction<string>) => {
-      state.currentUser = action.payload;
-      state.loading = false;
-      state.error = false;
-    },
-    updateUserFailure: (state, action: PayloadAction<string>) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    deleteUserStart: (state) => {
-      state.loading = true;
-    },
-    deleteUserSuccess: (state) => {
-      state.currentUser = null;
-      state.loading = false;
-      state.error = false;
-    },
-    deleteUserFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -65,12 +40,6 @@ export const {
   signInStart,
   signInSuccess,
   signInFailure,
-  updateUserFailure,
-  updateUserStart,
-  updateUserSuccess,
-  deleteUserFailure,
-  deleteUserStart,
-  deleteUserSuccess,
   signOut,
 } = userSlice.actions;
 

@@ -10,8 +10,9 @@ import { AppDispatch, AppState } from '../redux/store';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading, error } = useSelector((state: AppState) => state.user);
-
+  const { loading = false, error =  '' }: { loading: boolean, error: String | boolean } = useSelector((state: AppState) => state.user);
+  console.log(loading);
+  console.log(error);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const handleChange = (e) => {
@@ -46,9 +47,9 @@ export default function SignIn() {
         <h1 className="text-3xl block text-center font-semibold">Login <i className="fa-solid fa-user"></i> </h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           <hr className="mt-3" />
-          {['Email', 'Password'].map((ele) => (
-            <div className="mt-3">
-              <label className="block text-base mb-2">{ele}</label>
+          {['Email', 'Password'].map((ele, index) => (
+            <div className="mt-3" key={index}>
+              <label className="block text-base mb-2" htmlFor={ele.toLowerCase()}>{ele}</label>
               <input
                 type={ele != "Password" ? "text " : "password"}
                 id={ele.toLowerCase()}

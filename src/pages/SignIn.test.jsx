@@ -22,7 +22,7 @@ describe('SignIn component', () => {
   });
 
   it('renders SignIn component correctly', () => {
-    const { getAllByText, getByLabelText } = render(
+    const { queryAllByText, getByLabelText } = render(
       <Provider store={store}>
         <BrowserRouter>
           <SignIn />
@@ -30,14 +30,14 @@ describe('SignIn component', () => {
       </Provider>
     );
 
-    expect(getAllByText('Login')).toBeInTheDocument();
+    expect(queryAllByText('Login')[0]).toBeInTheDocument();
     expect(getByLabelText('Email')).toBeTruthy();
     expect(getByLabelText('Password')).toBeTruthy();
   });
 
   it('dispatches signInStart action on form submission', async () => {
     store.dispatch = jest.fn();
-    const { getByText, getByLabelText } = render(
+    const { queryAllByText, getByLabelText } = render(
       <Provider store={store}>
         <BrowserRouter>
           <SignIn />
@@ -47,7 +47,7 @@ describe('SignIn component', () => {
 
     fireEvent.change(getByLabelText('Email'), { target: { value: 'test@example.com' } });
     fireEvent.change(getByLabelText('Password'), { target: { value: 'password123' } });
-    fireEvent.click(getByText('Login'));
+    fireEvent.click(queryAllByText('Login')[1]);
 
     await waitFor(() => expect(store.dispatch).toHaveBeenCalledWith(signInStart()));
   });
