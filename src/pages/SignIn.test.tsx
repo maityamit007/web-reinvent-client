@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, getAllByText, getAllByLabelText } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import SignIn from './SignIn';
 import { signInStart } from '../redux/user/userSlice';
+import '@testing-library/jest-dom';
 
 // Mocking redux store
 const mockStore = configureStore([]);
@@ -21,7 +22,7 @@ describe('SignIn component', () => {
   });
 
   it('renders SignIn component correctly', () => {
-    const { getByText, getByLabelText } = render(
+    const { getAllByText, getByLabelText } = render(
       <Provider store={store}>
         <BrowserRouter>
           <SignIn />
@@ -29,7 +30,7 @@ describe('SignIn component', () => {
       </Provider>
     );
 
-    expect(getByText('Login')).toBeInTheDocument();
+    expect(getAllByText('Login')).toBeInTheDocument();
     expect(getByLabelText('Email')).toBeTruthy();
     expect(getByLabelText('Password')).toBeTruthy();
   });

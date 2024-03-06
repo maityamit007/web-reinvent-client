@@ -46,24 +46,17 @@ export default function SignIn() {
         <h1 className="text-3xl block text-center font-semibold">Login <i className="fa-solid fa-user"></i> </h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           <hr className="mt-3" />
-          <div className="mt-3">
-            <label className="block text-base mb-2">Email</label>
-            <input
-              type="text"
-              id="email"
-              onChange={handleChange}
-              className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
-              placeholder="Enter Email..." />
-          </div>
-          <div className="mt-3">
-            <label className="block text-base mb-2">Password</label>
-            <input
-              type="password"
-              id="password"
-              className="border w-full p-2 rounded-lg text-base focus:outline-none focus:ring-0 focus:border-gray-600"
-              onChange={handleChange}
-              placeholder="Enter Password..." />
-          </div>
+          {['Email', 'Password'].map((ele) => (
+            <div className="mt-3">
+              <label className="block text-base mb-2">{ele}</label>
+              <input
+                type={ele != "Password" ? "text " : "password"}
+                id={ele.toLowerCase()}
+                onChange={handleChange}
+                className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
+                placeholder={`Enter ${ele}...`} />
+            </div>
+          ))}
           <div className="mt-5">
             <button
               type="submit"

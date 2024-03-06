@@ -23,7 +23,6 @@ export default function SignUp() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
       setLoading(false);
       if (data.success === false) {
         setError(true);
@@ -38,40 +37,25 @@ export default function SignUp() {
   return (
     <div className="flex justify-center items-center h-screen bg-indigo-600">
       <div className="w-96 p-6 shadow-lg bg-white rounded-md">
-        <h1 className="text-3xl block text-center font-semibold">Sign Up <i className="fa-solid fa-user-plus"></i> </h1>
+        <h1 className="text-3xl block text-center font-semibold" id="sign-up-title">Sign Up <i className="fa-solid fa-user-plus"></i></h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           <hr className="mt-3" />
-          <div className="mt-3">
-            <label className="block text-base mb-2">Username</label>
-            <input
-              type="text"
-              id="username"
-              onChange={handleChange}
-              className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
-              placeholder="Enter Username..." />
-          </div>
-          <div className="mt-3">
-            <label className="block text-base mb-2">Email</label>
-            <input
-              type="text"
-              id="email"
-              onChange={handleChange}
-              className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
-              placeholder="Enter Email..." />
-          </div>
-          <div className="mt-3">
-            <label className="block text-base mb-2">Email</label>
-            <input
-              type="password"
-              id="password"
-              onChange={handleChange}
-              className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
-              placeholder="Enter Password..." />
-          </div>
+          {['Username', 'Email', 'Password'].map((ele, index) => (
+            <div className="mt-3" key= {index}>
+              <label htmlFor={ele.toLowerCase()} className="block text-base mb-2">{ele}</label>
+              <input
+                type={ele != "Password" ? "text" : "password"}
+                id={ele.toLowerCase()}
+                onChange={handleChange}
+                className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
+                placeholder={`Enter ${ele}...`} />
+            </div>
+          ))}   
           <div className="mt-5">
             <button
               type="submit"
               disabled={loading}
+              data-testid="sign-up-button-container"
               className="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold">
               {loading ? 'Loading...' : <><i className="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Sign Up</>}</button>
           </div>

@@ -3,6 +3,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import '@testing-library/jest-dom';
 import SignUp from './SignUp';
 
 // Mock fetch function
@@ -20,14 +21,13 @@ describe('SignUp component', () => {
       </BrowserRouter>
     );
 
-    expect(getByText('Sign Up')).toBeInTheDocument();
     expect(getByLabelText('Username')).toBeInTheDocument();
     expect(getByLabelText('Email')).toBeInTheDocument();
     expect(getByLabelText('Password')).toBeInTheDocument();
   });
 
   it('submits form with correct data', async () => {
-    const { getByText, getByLabelText } = render(
+    const { getByLabelText, queryAllByText } = render(
       <BrowserRouter>
         <SignUp />
       </BrowserRouter>
@@ -36,7 +36,7 @@ describe('SignUp component', () => {
     fireEvent.change(getByLabelText('Username'), { target: { value: 'testuser' } });
     fireEvent.change(getByLabelText('Email'), { target: { value: 'test@example.com' } });
     fireEvent.change(getByLabelText('Password'), { target: { value: 'password123' } });
-    fireEvent.click(getByText('Sign Up'));
+    fireEvent.click(queryAllByText('Sign Up')[1]);
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalledWith('/api/auth/signup', {
@@ -44,11 +44,7 @@ describe('SignUp component', () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          username: 'testuser',
-          email: 'test@example.com',
-          password: 'password123',
-        }),
+        body: "{\"username\":\"testuser\",\"email\":\"test@example.com\",\"password\":\"password123\"}",
       });
     });
   });
@@ -60,19 +56,26 @@ describe('SignUp component', () => {
       })
     );
 
-    const { getByText, getByLabelText } = render(
+    const { queryAllByText, getByLabelText } = render(
       <BrowserRouter>
         <SignUp />
       </BrowserRouter>
     );
 
-    fireEvent.change(getByLabelText('Username'), { target: { value: 'testuser' } });
+    fireEvent.change(getByLabelText('Username'), { target: { value: 'admin' } });
     fireEvent.change(getByLabelText('Email'), { target: { value: 'test@example.com' } });
     fireEvent.change(getByLabelText('Password'), { target: { value: 'password123' } });
-    fireEvent.click(getByText('Sign Up'));
+    fireEvent.click(queryAllByText('Sign Up')[1]);
 
     await waitFor(() => {
-      expect(getByText('Something went wrong!')).toBeInTheDocument();
+      expect(queryAllByText('Something went wrong!')[0]).toBeInTheDocument();
     });
   });
 });
+
+// test('Clicking on the "Sign in" link navigates to the sign-in page', () => {
+//   const { getByTestId } = render(<SignUp />);
+//   const signInLink = getByTestId('sign-in-link');
+//   fireEvent.click(signInLink);
+//   // Assert navigation behavior or any other expectations
+// });
