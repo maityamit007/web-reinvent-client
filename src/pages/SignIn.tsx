@@ -30,7 +30,6 @@ export default function SignIn() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
         dispatch(signInFailure(data));
         return;
@@ -42,39 +41,47 @@ export default function SignIn() {
     }
   };
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-        <input
-          type='email'
-          placeholder='Email'
-          id='email'
-          className='bg-slate-100 p-3 rounded-lg'
-          onChange={handleChange}
-        />
-        <input
-          type='password'
-          placeholder='Password'
-          id='password'
-          className='bg-slate-100 p-3 rounded-lg'
-          onChange={handleChange}
-        />
-        <button
-          disabled={loading}
-          className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
-        >
-          {loading ? 'Loading...' : 'Sign In'}
-        </button>
-      </form>
-      <div className='flex gap-2 mt-5'>
-        <p>Dont Have an account?</p>
-        <Link to='/sign-up'>
-          <span className='text-blue-500'>Sign up</span>
-        </Link>
+    <div className="flex justify-center items-center h-screen bg-indigo-600">
+      <div className="w-96 p-6 shadow-lg bg-white rounded-md">
+        <h1 className="text-3xl block text-center font-semibold">Login <i className="fa-solid fa-user"></i> </h1>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+          <hr className="mt-3" />
+          <div className="mt-3">
+            <label className="block text-base mb-2">Email</label>
+            <input
+              type="text"
+              id="email"
+              onChange={handleChange}
+              className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
+              placeholder="Enter Email..." />
+          </div>
+          <div className="mt-3">
+            <label className="block text-base mb-2">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="border w-full p-2 rounded-lg text-base focus:outline-none focus:ring-0 focus:border-gray-600"
+              onChange={handleChange}
+              placeholder="Enter Password..." />
+          </div>
+          <div className="mt-5">
+            <button
+              type="submit"
+              disabled={loading}
+              className="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold">
+              {loading ? 'Loading...' : <><i className="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Login</>}</button>
+          </div>
+          <div className='flex gap-2 mt-5'>
+            <p>Dont Have an account?</p>
+            <Link to='/sign-up'>
+              <span className='text-blue-500'>Sign up</span>
+            </Link>
+          </div>
+          <p className='text-red-700 mt-5'>
+            {typeof error === 'string' ? (error ? error : 'Something went wrong!') : ''}
+          </p>
+        </form>
       </div>
-      <p className='text-red-700 mt-5'>
-        {typeof error === 'string' ? (error ? error : 'Something went wrong!') : ''}
-      </p>
     </div>
   );
 }

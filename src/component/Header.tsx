@@ -18,17 +18,17 @@ export default function Header() {
   };
 
   return (
-    <div className='bg-slate-200'>
-      <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
+    <nav className='bg-indigo-700'>
+      <div className='flex justify-between items-center max-w-6xl mx-auto p-4'>
         <Link to='/'>
-          <h1 className='font-bold'>Web Reinvent</h1>
+          <h1 className='font-bold text-white'>WEB REINVENT</h1>
         </Link>
         <ul className='flex gap-4'>
-          <Link to='/'>
+          <Link to='/' className='text-white'>
             <li>Home</li>
           </Link>
 
-          <Link to='/profile'>
+          <Link to='/sign-in' className='text-white'>
             {currentUser ? (
               <li onClick={() => { handleSignOut() }}>Sign out</li>
             ) : (
@@ -37,6 +37,6 @@ export default function Header() {
           </Link>
         </ul>
       </div>
-    </div>
+    </nav>
   );
 }

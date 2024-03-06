@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-function Dashboard() {
+
+export default function Dashboard() {
     return (
-        <div className='text-blue-500'>
-           <h1>Dashboard</h1>
+        <div className="flex justify-center items-center h-screen bg-indigo-600">
+            <div className='home-title'>
+                <h1 className='text-white text-3xl'>Dashboard Page for Web Re-Invent</h1>
+            </div>
         </div>
     )
 }
 
-export default Dashboard

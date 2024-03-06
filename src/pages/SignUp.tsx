@@ -36,44 +36,54 @@ export default function SignUp() {
     }
   };
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-        <input
-          type='text'
-          placeholder='Username'
-          id='username'
-          className='bg-slate-100 p-3 rounded-lg'
-          onChange={handleChange}
-        />
-        <input
-          type='email'
-          placeholder='Email'
-          id='email'
-          className='bg-slate-100 p-3 rounded-lg'
-          onChange={handleChange}
-        />
-        <input
-          type='password'
-          placeholder='Password'
-          id='password'
-          className='bg-slate-100 p-3 rounded-lg'
-          onChange={handleChange}
-        />
-        <button
-          disabled={loading}
-          className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
-        >
-          {loading ? 'Loading...' : 'Sign Up'}
-        </button>
-      </form>
-      <div className='flex gap-2 mt-5'>
-        <p>Have an account?</p>
-        <Link to='/sign-in'>
-          <span className='text-blue-500'>Sign in</span>
-        </Link>
+    <div className="flex justify-center items-center h-screen bg-indigo-600">
+      <div className="w-96 p-6 shadow-lg bg-white rounded-md">
+        <h1 className="text-3xl block text-center font-semibold">Sign Up <i className="fa-solid fa-user-plus"></i> </h1>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+          <hr className="mt-3" />
+          <div className="mt-3">
+            <label className="block text-base mb-2">Username</label>
+            <input
+              type="text"
+              id="username"
+              onChange={handleChange}
+              className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
+              placeholder="Enter Username..." />
+          </div>
+          <div className="mt-3">
+            <label className="block text-base mb-2">Email</label>
+            <input
+              type="text"
+              id="email"
+              onChange={handleChange}
+              className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
+              placeholder="Enter Email..." />
+          </div>
+          <div className="mt-3">
+            <label className="block text-base mb-2">Email</label>
+            <input
+              type="password"
+              id="password"
+              onChange={handleChange}
+              className="border w-full text-base p-2 rounded-lg focus:outline-none focus:ring-0 focus:border-gray-600"
+              placeholder="Enter Password..." />
+          </div>
+          <div className="mt-5">
+            <button
+              type="submit"
+              disabled={loading}
+              className="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold">
+              {loading ? 'Loading...' : <><i className="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Sign Up</>}</button>
+          </div>
+        </form>
+        <div className='flex gap-2 mt-5'>
+          <p>Have an account?</p>
+          <Link to='/sign-in'>
+            <span className='text-blue-500'>Sign in</span>
+          </Link>
+        </div>
+        <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
       </div>
-      <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
     </div>
   );
 }
